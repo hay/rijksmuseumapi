@@ -3,7 +3,7 @@ require 'class-api-request.php';
 require 'class-record-parser.php';
 require 'class-event-based-class.php';
 class Harvest extends EventBasedClass {
-    private $requestNr = 1;
+    private $requestNr = 0;
     private $api;
 
     function __construct($apikey) {
@@ -11,8 +11,6 @@ class Harvest extends EventBasedClass {
     }
 
     public function harvest($resumptiontoken = false) {
-        $this->requestNr++;
-
         if ($resumptiontoken) {
             $args = array(
                 "resumptiontoken" => $resumptiontoken
@@ -29,7 +27,8 @@ class Harvest extends EventBasedClass {
         $this->emit("recordsloaded");
 
         $p = new RecordParser($xml);
-        file_put_contents($this->requestNr . ".json", $p->asJson());
+        $this->requestNr++;
+        file_put_contents("./output/" . $this->requestNr . ".json", $p->asJson());
 
         $this->emit("datawritten", $this->requestNr);
 
