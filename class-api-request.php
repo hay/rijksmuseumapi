@@ -1,7 +1,7 @@
 <?php
 require 'class-http-request.php';
 
-class ApiRequest(
+class ApiRequest {
     private $apikey;
 
     const ENDPOINT = "http://www.rijksmuseum.nl/api/oai";
@@ -34,7 +34,7 @@ class ApiRequest(
         ));
     }
 
-    private doCall($args) {
+    private function doCall($args) {
         $r = new HttpRequest("get", $this->buildUrl($args));
         if ($r->getError()) {
             die("Error! " . $r->getError());
@@ -55,4 +55,4 @@ class ApiRequest(
 
         return $url;
     }
-)
+}

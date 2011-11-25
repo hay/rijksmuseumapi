@@ -7,6 +7,8 @@ $api = new ApiRequest(Config::API_KEY);
 $requestNr = 0;
 
 function request($resumptiontoken = false) {
+    global $api;
+
     $requestNr++;
 
     if ($resumptiontoken) {
