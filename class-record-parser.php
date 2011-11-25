@@ -19,6 +19,14 @@ class RecordParser {
         return json_encode( $this->getRecords() );
     }
 
+    public function getResumptionToken() {
+        if ($this->xml->resumptionToken) {
+            return (string) $this->xml->resumptionToken;
+        } else {
+            return false;
+        }
+    }
+
     private function parse() {
         foreach ($this->xml->ListRecords->records->record as $record) {
             $this->records[] = $this->parseRecord($record);
