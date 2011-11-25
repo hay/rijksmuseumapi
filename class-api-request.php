@@ -20,7 +20,7 @@ class ApiRequest {
             $args['resumptiontoken'] = $initArgs['resumptiontoken'];
         }
 
-        return $this->doCall(args);
+        return $this->doCall($args);
     }
 
     public function getRecord($initArgs) {
@@ -45,11 +45,11 @@ class ApiRequest {
 
     private function buildUrl($args) {
         $url = sprintf(
-            self::ENDPOINT . "?apikey=%s&verb=%sset=%s",
-            $this->apikey, $args['verb'], $args['set']
+            self::ENDPOINT . "?apikey=%s",
+            $this->apikey
         );
 
-        foreach ($args->extraArgs as $key=>$value) {
+        foreach ($args as $key=>$value) {
             $url .= "&$key=$value";
         }
 

@@ -20,8 +20,8 @@ class RecordParser {
     }
 
     public function getResumptionToken() {
-        if ($this->xml->resumptionToken) {
-            return (string) $this->xml->resumptionToken;
+        if ($this->xml->ListRecords->resumptionToken) {
+            return (string) $this->xml->ListRecords->resumptionToken;
         } else {
             return false;
         }
