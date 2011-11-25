@@ -1,8 +1,9 @@
 <?php
 require 'class-api-request.php';
 require 'class-record-parser.php';
-class Harvest {
-    private $requestNr = 0;
+require 'class-event-based-class.php';
+class Harvest extends EventBasedClass {
+    private $requestNr = 1;
     private $api;
 
     function __construct($apikey) {
@@ -25,8 +26,12 @@ class Harvest {
             die('Did not get back records');
         }
 
+        $this->emit("recordsloaded");
+
         $p = new RecordParser($xml);
         file_put_contents($this->requestNr . ".json", $p->asJson());
+
+        $this->emit("datawritten", $this->requestNr);
 
         $rt = $p->getResumptionToken();
         if ($rt) {

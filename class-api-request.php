@@ -35,10 +35,12 @@ class ApiRequest {
     }
 
     private function doCall($args) {
-        $r = new HttpRequest("get", $this->buildUrl($args));
+        $url = $this->buildUrl($args);
+        $r = new HttpRequest("get", $url);
         if ($r->getError()) {
             die("Error! " . $r->getError());
         } else {
+            echo "Got url! $url";
             return $r->getResponse();
         }
     }
