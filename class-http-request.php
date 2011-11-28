@@ -1,17 +1,17 @@
 <?php
-/** 
+/**
  * HttpRequest - A simple PHP class using cURL for Ajax-like HTTP requests
  * by Hay Kranen <hay at bykr dot org>
  * Released under the MIT / X11 license
- * version 1.0
+ * version 1.1
  *
  * Use:
  * $r = new HttpRequest($method, $url, $data, $args)
  * $method: "get" / "post"
  * $url: duh :)
  * $data: an array of values you want to send as query parameters or POST values
- * $args: array of possible extra arguments for the request 
- * 
+ * $args: array of possible extra arguments for the request
+ *
  * Then, check for errors with $r->getError() and response with $r->getResponse()
  * eg with the public tweets from twitter
  * $r = new HttpRequest("get", "http://twitter.com/statuses/public_timeline.json");
@@ -22,9 +22,9 @@
  *     $tweets = json_decode($r->getResponse());
  *     var_dump($tweets);
  * }
- * 
+ *
  * == License (MIT/X11) ==
- * 
+ *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -33,10 +33,10 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -50,6 +50,9 @@ class HttpRequest {
     private $method, $url, $data = false;
     private $error, $hasError = false, $response, $status;
     private $requestInfo, $curlError, $headers = array();
+    private $requestMethods = array(
+        "post", "get", "delete", "put", "head"
+    );
 
     // Default arguments
     private $args = array(
@@ -58,10 +61,10 @@ class HttpRequest {
 
     function __construct($method, $url, $data = false, $args = false) {
         $method = strtolower($method);
-        if ($method == "post" || $method == "get") {
+        if (in_array($method, $this->requestMethods)) {
             $this->method = $method;
         } else {
-            $this->setError("Invalid method: $method");
+            $this->setError("Invalid or unsupported method: $method");
             return;
         }
 
@@ -141,8 +144,17 @@ class HttpRequest {
         // POST
         if($this->method == "post") {
             curl_setopt($c, CURLOPT_POST, true);
-            // Always escape HTTP data dammit!
-            curl_setopt($c, CURLOPT_POSTFIELDS, http_build_query($this->data));
+        }
+
+        // PUT
+        if($this->method == "put") {
+            curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($c, CURLOPT_CUSTOMREQUEST, "PUT");
+        }
+
+        if($this->method == "put" || $this->method == "post") {
+            $data = (is_array($this->data)) ? http_build_query($this->data) : $this->data;
+            curl_setopt($c, CURLOPT_POSTFIELDS, $data);
         }
 
         // Many servers require this to output decent HTML
@@ -168,7 +180,7 @@ class HttpRequest {
         }
         return strlen($header);
 	}
-	
+
 	function getHeaders($key = false) {
         if ($key) {
             return $this->headers[$key];
