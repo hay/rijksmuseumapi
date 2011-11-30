@@ -2,11 +2,33 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+    <header>
+        <hgroup>
+            <h1>Het Virtuele Rijksmuseum</h1>
+            <h2>Door <a href="http://www.haykranen.nl">Hay Kranen</a></h2>
+        </hgroup>
 
-    <script src="jquery.js"></script>
-    <script src="app.js"></script>
+        <aside class="share">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="huskyr">Tweet</a>
+        </aside>
+    </header>
+
+    <div id="canvas">
+        <p class="loading">een momentje...</p>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/classy.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/view.js"></script>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script>
+        var controller = Controller();
+        controller.init();
+    </script>
 </body>
 </html>
