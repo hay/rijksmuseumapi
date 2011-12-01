@@ -67,7 +67,7 @@ header {
     #canvas .loading {
         font-size: 72px;
         text-align: center;
-        color: #999;
+        color: #666;
         font-weight: bold;
         letter-spacing: 1px;
     }
@@ -79,23 +79,26 @@ header {
     margin: 10px;
     border: 1px solid #999;
     border-radius: 5px;
-    font-size: 10px;
     text-align: center;
-    font-family: Helvetica;
-    color: #ccc;
     overflow: hidden;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
     background: white;
     text-decoration: none;
     background-position: center center;
     background-size: cover;
 }
 
+    .painting p {
+        font-size: 12px;
+        display: inline;
+        color: #666;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
     .painting:hover {
         color: black;
         cursor: pointer;
         -moz-transform: scale(1.2, 1.2);
+        text-indent: -9999px;
     }
 
     .painting img {

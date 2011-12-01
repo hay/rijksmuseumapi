@@ -1,6 +1,19 @@
 window.View = (function() {
     var View = Classy();
 
+    var painting = {
+        "click" : function(e) {
+            e.preventDefault();
+            window.open( $(e.target).attr('href') );
+        },
+
+        "hover" : function(e) {
+            var thumb = $(e.target).data('thumb');
+            console.log(thumb);
+            $(e.target).css('background-image', 'url(' + thumb + ')');
+        }
+    };
+
     View.extend({
         "clear" : function() {
             $("#canvas").html('<p class="loading">een momentje...</p>');
@@ -8,10 +21,8 @@ window.View = (function() {
         },
 
         "init" : function() {
-            $("#canvas").on('mouseenter', '.painting', function(e) {
-                var thumb = $(this).data('thumb');
-                $(this).css('background-image', 'url(' + thumb + ')');
-            });
+            $("#canvas").on('click', '.painting', painting.click);
+            $("#canvas").on('mouseenter', '.painting', painting.hover);
         },
 
         "redraw" : function(data) {
@@ -20,7 +31,7 @@ window.View = (function() {
                var $p = $(''.concat(
                    '<a class="painting" data-img="' + item.image + '"',
                    'data-thumb="' + item.thumb + '"',
-                   'href="' + item.link + '">' + item.title + '</a>'
+                   'href="' + item.link + '"><p>' + item.title + '</p></a>'
                )).css({
                    'width' : item.width,
                    'height' : item.height,
