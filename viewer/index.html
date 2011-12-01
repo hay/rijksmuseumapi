@@ -1,10 +1,25 @@
 <!doctype html>
-<html>
+<!--[if lt IE 7 ]> <html lang="nl" class="ie6 ielt7 ielt8 ielt9"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="nl" class="ie7 ielt8 ielt9"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="nl" class="ie8 ietl9"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="nl"> <!--<![endif]-->
 <head>
     <title></title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+    <div id="iewarning">
+        <p>Hoi. Sorry, het spijt me, maar je browser is te oud voor deze website.</p>
+        <p>Je gebruikt Internet Explorer 8 of lager, en daar mee kun je alle coole
+        dingen op deze website niet zien :(</p>
+        <p>Gelukkig is de oplossing heel simpel: download en installeer een andere browser.
+        Ik raad aan: <a href="http://www.mozilla.com">Firefox</a> voor idealisten en
+        <a href="http://www.google.com/chrome">Chrome</a> voor pragmatisten.</p>
+        <p>En nogmaals excuses als je geen browsers mag installeren omdat je
+        systeembeheerder nog leeft in 1998.
+        Dan moet je maar thuis naar deze website kijken.</p>
+    </div>
+
     <header>
         <hgroup>
             <h1>Het Virtuele Rijksmuseum</h1>
@@ -20,15 +35,13 @@
         <p class="loading">een momentje...</p>
     </div>
 
-    <script src="js/jquery.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="js/isotope.js"></script>
     <script src="js/classy.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/model.js"></script>
     <script src="js/view.js"></script>
+    <script src="js/app.js"></script>
     <script src="http://platform.twitter.com/widgets.js"></script>
-    <script>
-        var controller = Controller();
-        controller.init();
-    </script>
 </body>
 </html>

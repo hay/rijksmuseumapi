@@ -5,6 +5,12 @@ window.Model = (function() {
         return 'data/schilderij.json';
     }
 
+    function getThumb(data) {
+        // Fucking mess...
+        var img = data.formats[0].url.match(/\/assets\/(.*)/)[1];
+        return 'http://www.rijksmuseum.nl/assetimage2.jsp?id=' + img + '&aria/maxwidth_288';
+    }
+
     function getViewUrl() {
         return ''.concat(
             'http://',
@@ -57,9 +63,11 @@ window.Model = (function() {
                    if (doc.type === "schilderij" && doc.height && doc.width) {
                        Model.data.push({
                            'image' : doc.formats[0].url,
+                           'link' : doc.formats[1].url,
                            'title' : doc.title,
                            'width' : doc.width,
-                           'height' : doc.height
+                           'height' : doc.height,
+                           'thumb' : getThumb(doc)
                        });
                    }
                 });
