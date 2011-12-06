@@ -9,10 +9,24 @@ window.View = (function() {
 
         "hover" : function(e) {
             var thumb = $(e.target).data('thumb');
-            console.log(thumb);
             $(e.target).css('background-image', 'url(' + thumb + ')');
         }
     };
+
+    function drawItems(data) {
+        var html = $.map(data, function(item) {
+            return ''.concat(
+               '<a class="painting" data-img="' + item.image + '"',
+               'data-thumb="' + item.thumb + '"',
+               'href="' + item.link + '"',
+               'style="width:' + item.width + 'px;',
+               'height:' + item.height + 'px;"',
+               '"><p>' + item.title + '</p></a>'
+            );
+        });
+
+        $("#canvas").html( html.join('') );
+    }
 
     View.extend({
         "clear" : function() {
@@ -27,26 +41,9 @@ window.View = (function() {
 
         "redraw" : function(data) {
             $("#canvas .loading").remove();
-            $.each(data, function(i, item) {
-               var $p = $(''.concat(
-                   '<a class="painting" data-img="' + item.image + '"',
-                   'data-thumb="' + item.thumb + '"',
-                   'href="' + item.link + '"><p>' + item.title + '</p></a>'
-               )).css({
-                   'width' : item.width,
-                   'height' : item.height,
-                   'display' : 'none'
-               });
 
-               $("#canvas").append( $p );
-            });
+            drawItems(data);
 
-            $("#canvas").isotope({
-                itemSelector : '.painting',
-                layoutMode : 'fitRows'
-            });
-
-            $("#canvas .painting").show();
             View.emit('reloaded');
          }
     });
