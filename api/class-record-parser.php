@@ -28,7 +28,7 @@ class RecordParser {
     }
 
     private function parse() {
-        foreach ($this->xml->ListRecords->records->record as $record) {
+      foreach ($this->xml->ListRecords->record as $record) {
             $this->records[] = $this->parseRecord($record);
         }
     }

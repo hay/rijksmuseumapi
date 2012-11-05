@@ -1,6 +1,8 @@
 Rijksmuseum API Tools
 =====================
 Tools to access the Rijksmuseum API.
+Fork by @PanMan, http://twitter.com/PanMan, only fixed the harvester part, didn't look at the rest.
+Original info below:
 
 API (api/*)
 -----------
