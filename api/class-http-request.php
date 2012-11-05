@@ -125,6 +125,8 @@ class HttpRequest {
         if ($this->method == "get" && $this->data) {
             $this->url .= "?" . http_build_query($this->data);
         }
+        
+//        echo "Try to get: ".$this->url."\n"; //Usefull for debugging, but leave commented for now
 
         // Default values
         curl_setopt($c, CURLOPT_URL, $this->url);
