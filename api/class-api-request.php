@@ -13,7 +13,8 @@ class ApiRequest {
     public function listRecords($initArgs) {
         $args = array(
             "verb" => "ListRecords",
-            "set" => "collectie_online"
+            "set" => "collectie_online",
+            "metadataPrefix" => "oaidc" //New, is needed, always oaidc? Not really clear from the docs...
         );
 
         if (isset($initArgs['resumptiontoken'])) {
@@ -46,10 +47,7 @@ class ApiRequest {
     }
 
     private function buildUrl($args) {
-        $url = sprintf(
-            self::ENDPOINT . "?apikey=%s",
-            $this->apikey
-        );
+        $url=self::ENDPOINT ."/".$this->apikey."/?a=a"; //we need to set the api key. The ?a=a is bogus, but makes the foreach below work without detecting if we should start with a ? or a &
 
         foreach ($args as $key=>$value) {
             $url .= "&$key=$value";
