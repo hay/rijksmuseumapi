@@ -22,4 +22,4 @@ Resources
 Contributors
 ------------
 Thanks to all of you for fixing bugs!
-* [http://twitter.com/PanMan](@PanMan) fixed the harvester part
+* [@PanMan](http://twitter.com/PanMan) fixed the harvester part
